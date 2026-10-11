@@ -27,7 +27,7 @@ function cosine(a: number[], b: number[]): number {
 		magB += b[i] * b[i];
 	}
 	return dot / (Math.sqrt(magA) * Math.sqrt(magB));
-}
+} 
 
 async function main() {
 	const query = 'best language to learn to code for backend development';
@@ -48,6 +48,7 @@ async function main() {
 		'i went to the mountains and hiked',
 		'i went to the city and walked around',
 		'i went to the country and farmed',
+		'banana is a fruit',
 	];
 
 	// One API call embeds them all: [query, ...candidates]
