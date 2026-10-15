@@ -14,6 +14,12 @@ still bruised.
       a curl command ready to paste for people with no client installed.
 - [ ] Open: `lib/vector-search.ts`, `app/api/search/route.ts`, `lib/agents/selector.ts`,
       the Pinecone console.
+- [ ] **Pre-run the Bible rerank demo** (instead of live-coding rerank on the notes):
+      `npm run bible:teach`. It chunks the KJV one chapter per point into the Qdrant
+      collection `bible_chapters` (reused if it's already populated), runs the curated
+      queries cosine-only vs reranked, and writes `data/bible/rerank-demo.html`, a
+      before/after slopegraph to put on screen. Check which queries actually got
+      rescued on the day and lead with those. `--dry-run` shows the chunking stats for free.
 - [ ] Have 4–5 queries ready that you *know* behave differently. Cohort 3 used:
       *"Which of my patients are showing signs of cognitive decline?"*,
       *"patients with breathing issues"*, *"what did you eat today"* (off-topic

@@ -25,6 +25,7 @@
 		"bible:audit": "tsx scripts/bible/audit.ts",
 		"bible:store": "tsx scripts/bible/store.ts",
 		"bible:search": "tsx scripts/bible/search.ts",
+		"bible:teach": "tsx scripts/bible/teach-rerank.ts",
 		"security:poisoned": "tsx scripts/security/demo-poisoned-docs.ts"
 	},
 	"dependencies": {
