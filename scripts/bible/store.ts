@@ -36,7 +36,7 @@ const VECTOR_SIZE = 1536;
 /** Qdrant's distance values are capitalized string literals: 'Cosine' | 'Euclid' | 'Dot' | 'Manhattan'. */
 const DISTANCE = 'Cosine' as const;
 /** Embed and upsert in batches — one request per chunk would take all evening. */
-const BATCH = 100;
+const BATCH = 50;
 
 type Chunk = {
 	id: number;
@@ -54,7 +54,29 @@ function client(): QdrantClient {
 	}
 	// apiKey is required by Qdrant Cloud and ignored by a local Docker instance,
 	// so passing it unconditionally works for both.
-	return new QdrantClient({ url, apiKey: process.env.QDRANT_API_KEY });
+	// Connection: close — pooled keep-alive sockets to Qdrant Cloud were dying
+	// mid-ingest (EPIPE / UND_ERR_SOCKET). A fresh socket per request is slower
+	// but doesn't fail.
+	return new QdrantClient({
+		url,
+		apiKey: process.env.QDRANT_API_KEY,
+		checkCompatibility: false,
+		headers: { Connection: 'close' },
+	});
+}
+
+// Network blips (proxy cold start, dropped socket) shouldn't cost a 10k-point re-ingest.
+async function retry<T>(fn: () => Promise<T>, tries = 10): Promise<T> {
+	for (let i = 1; ; i++) {
+		try {
+			return await fn();
+		} catch (err) {
+			const c = (err as { cause?: { code?: string; message?: string } }).cause;
+			console.error(`\n  attempt ${i} failed: ${c?.code ?? c?.message ?? err}`);
+			if (i >= tries) throw err;
+			await new Promise((r) => setTimeout(r, 1000 * i));
+		}
+	}
 }
 
 async function main() {
@@ -99,9 +121,9 @@ async function main() {
 	let stored = 0;
 	for (let i = 0; i < chunks.length; i += BATCH) {
 		const batch = chunks.slice(i, i + BATCH);
-		const vectors = await createEmbeddings(batch.map((c) => c.text));
+		const vectors = await retry(() => createEmbeddings(batch.map((c) => c.text)));
 
-		await qdrant.upsert(collection, {
+		await retry(() => qdrant.upsert(collection, {
 			// `wait` defaults to FALSE: without this the call returns
 			// 'acknowledged' before the points are searchable, and a query run
 			// straight afterwards legitimately comes back empty. That looks
@@ -116,7 +138,7 @@ async function main() {
 				vector: vectors[n],
 				payload: { text: chunk.text, ...(chunk.metadata ?? {}) },
 			})),
-		});
+		}));
 
 		stored += batch.length;
 		process.stdout.write(`\r  stored ${stored.toLocaleString()} / ${chunks.length.toLocaleString()}`);
