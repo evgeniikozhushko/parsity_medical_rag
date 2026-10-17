@@ -50,3 +50,5 @@ infra/litellm/roster*.txt
 infra/litellm/one.txt
 infra/litellm/.env
 .env
+
+qdrant_storage/

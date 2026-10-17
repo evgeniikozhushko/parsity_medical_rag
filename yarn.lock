@@ -342,6 +342,19 @@
     d3-shape "3.2.0"
     elkjs "0.11.1"
 
+"@qdrant/js-client-rest@^1.19.0":
+  version "1.19.0"
+  resolved "https://registry.npmjs.org/@qdrant/js-client-rest/-/js-client-rest-1.19.0.tgz"
+  integrity sha512-1+QLUHsWp+WV4PE35FLnH2ckxotWrQEqi/F3t4goF3cCThR0ZxLVtOC4OoOi/E1iyj/iIYBdbuACWMuQ15NAnA==
+  dependencies:
+    "@qdrant/openapi-typescript-fetch" "1.2.6"
+    undici "7.29.0"
+
+"@qdrant/openapi-typescript-fetch@1.2.6":
+  version "1.2.6"
+  resolved "https://registry.npmjs.org/@qdrant/openapi-typescript-fetch/-/openapi-typescript-fetch-1.2.6.tgz"
+  integrity sha512-oQG/FejNpItrxRHoyctYvT3rwGZOnK4jr3JdppO/c78ktDvkWiPXPHNsrDf33K9sZdRb6PR7gi4noIapu5q4HA==
+
 "@radix-ui/primitive@1.1.3":
   version "1.1.3"
   resolved "https://registry.npmjs.org/@radix-ui/primitive/-/primitive-1.1.3.tgz"
@@ -2370,7 +2383,7 @@ tsx@^4.23.15, tsx@^4.8.1:
   optionalDependencies:
     fsevents "~2.3.3"
 
-typescript@^6.0.3, typescript@>=5, typescript@>=5.4.0:
+typescript@^6.0.3, typescript@>=4.7, typescript@>=5, typescript@>=5.4.0:
   version "6.0.3"
   resolved "https://registry.npmjs.org/typescript/-/typescript-6.0.3.tgz"
   integrity sha512-y2TvuxSZPDyQakkFRPZHKFm+KKVqIisdg9/CZwm9ftvKXLP8NRWj38/ODjNbr43SsoXqNuAisEf1GdCxqWcdBw==
@@ -2384,6 +2397,11 @@ undici@^7.29.0, "undici@>=5 <9":
   version "7.30.0"
   resolved "https://registry.npmjs.org/undici/-/undici-7.30.0.tgz"
   integrity sha512-dkrQXeHSaoamnItlYbmzG0wFYrM0ZwDxCIg0A7aKjTyyhh9svRzCNFEzV+Vm05/yehjCzjDZ31KXfGEjYSztDQ==
+
+undici@7.29.0:
+  version "7.29.0"
+  resolved "https://registry.npmjs.org/undici/-/undici-7.29.0.tgz"
+  integrity sha512-IDxfleLmmbSskfWSUATiN1nfn2rDuvnMOqb5CWR92iIfojA0Ud+ulOAAEQ57LPr9rWmsreUyf5lwyao+7GNNVw==
 
 unified@^11.0.0:
   version "11.0.5"

@@ -14,7 +14,8 @@
 		"vectorize": "tsx scripts/vectorize.ts",
 		"similarity": "tsx scripts/similarity.ts",
 		"bible:fetch": "tsx scripts/bible/fetch.ts",
-		"bible:chunk": "tsx scripts/bible/chunk.ts"
+		"bible:chunk": "tsx scripts/bible/chunk.ts",
+		"bible:index": "tsx scripts/bible/index.ts"
 	},
 	"dependencies": {
 		"@ai-sdk/openai": "^4.0.91",
@@ -24,6 +25,7 @@
 		"@pinecone-database/pinecone": "^9.0.0",
 		"@prisma/adapter-pg": "^7.10.0",
 		"@prisma/client": "^7.10.0",
+		"@qdrant/js-client-rest": "^1.19.0",
 		"ai": "^7.0.135",
 		"langsmith": "^0.10.9",
 		"next": "^16.4.0",
